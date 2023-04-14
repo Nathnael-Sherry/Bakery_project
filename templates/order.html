@@ -1,0 +1,167 @@
+<html lang="en">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BAKERY MANAGEMENT SYSTEM</title>
+
+      {% load static %}
+      <link rel="stylesheet" href="{% static "css/frm.css" %}">
+  </head>
+  <body>
+
+
+    <div class="ftp">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-md">
+
+        </div>
+      </nav>
+
+
+      <div class="container mt-5">
+
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{% static "img/logo.png" %}" alt="" class="logo">
+                <br>
+                <br>
+
+                <form action="/insert" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Enter Full Name" name="name" required>
+                    </div>
+                    <br>
+
+{#                    <div class="form-group">#}
+{#                        <input type="email" class="form-control  mt-2" placeholder="Email" name="email" required>#}
+{#                    </div>#}
+
+                    <div class="form-group">
+                        <input type="number" class="form-control  mt-2" placeholder="Age" name="age" required>
+
+                    </div>
+                    <br>
+
+                    <div class="form-group mt-2">
+                        <select id="caketype" name="caketype" class="form-control" required>
+                            <option selected>select type of cake</option>
+                            <option value="blackforest">Black Forest</option>
+                            <option value="whiteforest">white Forest</option>
+                            <option value="vanillacake">Vanilla Cake</option>
+                            <option value="chocolatefudge">Chocolate Fudge</option>
+                            <option value="raspberry">Raspberry</option>
+{#                            <option value="babyshower">Baby Shower</option>#}
+{#                            <option value="housewarming">House Warming</option>#}
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="number" class="form-control  mt-2" placeholder="Quantity in Kgs" name="quantity" required>
+
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="number" class="form-control  mt-2" placeholder="Price" name="price" required>
+
+                    </div>
+                    <br>
+                    <div class="form-group mt-2">
+                        <select id="event" name="event" class="form-control" required>
+                            <option selected>select event</option>
+                            <option value="birthday">Birthday</option>
+                            <option value="graduation">Graduation</option>
+                            <option value="wedding">Wedding</option>
+                            <option value="christmas">Christmas</option>
+                            <option value="christmas">Anniversary</option>
+                            <option value="babyshower">Baby Shower</option>
+                            <option value="housewarming">House Warming</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="tel" class="form-control  mt-2" placeholder="Phone Number" name="phone" required>
+
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="date" class="form-control  mt-2" placeholder="Date of order" name="orderdate" required>
+
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="date" class="form-control  mt-2" placeholder="Date of delivery" name="deliverydate" required>
+
+                    </div>
+                    <br>
+
+                    <div class="d-grid gap-2">
+
+                        <button class="btn btn-success mt-2 submit" type="submit">Insert</button>
+                    </div>
+
+
+
+                </form>
+            </div>
+
+
+        </div>
+
+      </div>
+    </div>
+
+     <div class="col-md-8">
+                <h2>Wincer Cake House Database</h2>
+                <table class="table table-striped table-hover" id="tbl">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+{#                        <th scope="col">Email</th>#}
+                        <th scope="col">Age</th>
+                        <th scope="col">event</th>
+                        <th scope="col">caketype</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">orderdate</th>
+                        <th scope="col">deliverydate</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+
+                      </tr>
+                    </thead>
+                    <hr>
+                    <tbody class="table-group-divider">
+
+                    {% for d in data %}
+                      <tr>
+                        <th scope="row">{{d.id}}</th>
+                        <td>{{d.name}}</td>
+{#                        <td>{{d.email}}</td>#}
+                        <td>{{d.age}}</td>
+                        <td>{{d.event}}</td>
+                        <td>{{d.caketype}}</td>
+                        <td>{{d.quantity}}</td>
+                        <td>{{d.price}}</td>
+                        <td>{{d.phone}}</td>
+                        <td>{{d.orderdate}}</td>
+                        <td>{{d.deliverydate}}</td>
+                        <td><a href="/update/{{d.id}}" type="button" class="btn btn-outline-warning">Edit</a></td>
+                        <td><a href="/delete/{{d.id}}" type="button" class="btn btn-outline-danger">Delete</a></td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+
+
+            </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+
+</html>
